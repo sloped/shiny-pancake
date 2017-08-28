@@ -1,0 +1,50 @@
+FORMAT: 1A
+
+# Select Account Portal REST API
+
+The Select Account REST API is used to retrieve and update data related to members and their accounts. It attempts to conform to
+RESTful pricinples whenever possible. 
+
+## Authentication
+
+The API is through SelectAccount's TAML appliance. 
+
+## Errors
+
+All errors use conventional HTTP response codes to indicate success or failure. Error codes try to map cleanly but we cannot guarantee a 1-1 mapping.
+In general you can assume a 2xx response indicates success.
+
+### HTTP Code Definitions
+
+- **200** The call was successful
+- **201** The call was successful and a entity was created. The response will contain a description of the entity along with a unique ID.
+- **400** The input was invalid. The response will contain a description of the invalid inputs.
+- **401** The call was not authenticated
+- **403** The appliation was successfully authenticated but is unable to access the requested resource.
+- **404** The requested resource could not be found. It may have been deleted or never been created.
+- **429** The client has exceeded the rate limit established by the API
+- **500** An unexpected error occured
+
+## Response Structure
+
+All responses from the API contain a `data` section and a `meta` section. Each of these serve important purposes. 
+
+- `data`
+Data is the requested data from the server. This contains all Responses documented in all API endpoints within this document. 
+
+- `meta`
+Meta is information about the request. It should contain the following. 
+
+- `status` : This is the status of a message, it maybe either `ok` or `error`.
+- `message` : Any message that should be passed back from the api. This could be an error code. 
+- `pages` : If there are multiple pages of data available, this should be set to the number of pages available.
+- `page` : This should indicate which page of data was returned. This will be 1 if no pages are available. 
+
+Additional information may be available for different requests. 
+
+# Group Accounts
+
+Resources related to a members accounts.
+
+## Shifts [/shifts]
+
